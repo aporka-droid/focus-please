@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#233F59">
+  <meta name="description" content="A little time for what matters. A calm, customizable Pomodoro timer. No accounts. Just focus.">
+  <title>Focus Please — A little time for what matters.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/settings.js"></script>
+  <script defer src="js/timer.js"></script>
+  <script defer src="js/audio.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="./" aria-label="Focus Please home"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M16 8v9l6 3"/></svg>focusplease<span>.</span></a>
+    <div class="header-actions"><span class="collection">a little tool by <a href="https://please-dashboard.vercel.app/" target="_blank" rel="noopener">please.</a></span><button class="icon-button" id="settings-open" aria-label="Open settings" title="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg></button></div>
+  </header>
+  <main>
+    <div class="intro"><span class="eyebrow">LESS NOISE. MORE FOCUS.</span><h1>A little time for what matters.</h1></div>
+    <nav class="modes" aria-label="Timer mode"><button data-mode="focus" aria-pressed="true">Focus</button><button data-mode="short" aria-pressed="false">Short break</button><button data-mode="long" aria-pressed="false">Long break</button></nav>
+    <section class="timer-area" aria-label="Pomodoro timer">
+      <svg class="ring" viewBox="0 0 400 400" aria-hidden="true"><circle class="ring-track" cx="200" cy="200" r="190"/><circle id="progress" cx="200" cy="200" r="190" pathLength="100"/></svg>
+      <div class="timer-content"><span class="timer-caption" id="timer-caption">TIME TO FOCUS</span><div id="countdown" role="timer" aria-live="off" aria-label="25 minutes remaining">25:00</div><span class="timer-note" id="timer-note">One thing at a time.</span></div>
+    </section>
+    <div class="controls"><button class="icon-button reset" id="reset" aria-label="Reset timer" title="Reset (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></svg></button><button class="start" id="start"><span id="play-icon" aria-hidden="true">▶</span><span id="start-label">Start focus</span></button><button class="icon-button" id="skip" aria-label="Skip to next session" title="Skip session"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 6 10 6-10 6ZM19 6v12"/></svg></button></div>
+    <div class="keyboard-hint">press <kbd>space</kbd> to start or pause</div>
+    <div class="session-info"><div class="session-line"><span class="dots" id="dots" aria-hidden="true"></span><span id="cycle">Session 1 of 4</span><span class="separator">/</span><span id="next">Up next: short break</span></div><p id="stats">A fresh start. Make a little room for focus.</p></div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </main>
+  <footer><span>A little tool from <a href="https://please-dashboard.vercel.app/">please.</a></span><div><button id="ambient-toggle" aria-pressed="false"><span aria-hidden="true">♫</span> <span id="ambient-label">Ambient off</span></button><span class="footer-divider"></span><button id="fullscreen" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg><span>Focus view</span></button></div></footer>
+  <button class="exit-focus" id="exit-focus">↙ Exit focus view <kbd>esc</kbd></button>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form"><div class="dialog-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="settings-title">Your rhythm.</h2></div><button type="button" class="icon-button" id="settings-close" aria-label="Close settings">✕</button></div><p class="settings-intro">A little structure. Plenty of room for you.</p><fieldset><legend>Session lengths <span>minutes</span></legend><div class="duration-grid"><label>Focus<input name="focus" type="number" min="1" max="180" required></label><label>Short break<input name="short" type="number" min="1" max="60" required></label><label>Long break<input name="long" type="number" min="1" max="120" required></label></div><label class="setting-row">Focus sessions per cycle<input class="cycle-input" name="cycle" type="number" min="1" max="12" required></label></fieldset><fieldset><legend>Keep the flow</legend><label class="setting-row">Auto-start breaks<input type="checkbox" name="autoBreak"></label><label class="setting-row">Auto-start focus sessions<input type="checkbox" name="autoFocus"></label></fieldset><fieldset><legend>A little atmosphere</legend><label class="setting-row">Completion chime<input type="checkbox" name="sound"></label><label class="setting-row">Ambient sound <span class="setting-detail">Soft, generated noise</span><input type="checkbox" name="ambient"></label></fieldset><p class="settings-footnote">Duration changes apply to the next session or reset.<br>Everything stays in this browser.</p><button class="save" type="submit">Save preferences <span aria-hidden="true">↗</span></button></form></dialog>
+</body>
+</html>
