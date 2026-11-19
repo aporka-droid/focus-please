@@ -5,7 +5,7 @@
   const labels={focus:'focus',short:'short break',long:'long break'};
   const dialog=$('settings-dialog'),form=$('settings-form');
   function announce(message){$('status').textContent=message;}
-  timer.oncomplete=(mode)=>{announce(mode==='focus'?'Nicely done. Take a little break.':'A fresh moment. Ready when you are.');if(settings.sound)FocusAudio.chime();};
+  timer.oncomplete=(mode)=>{announce(mode==='focus'?'Focus session complete.':'Break complete.');if(settings.sound)FocusAudio.chime();};
   if(timer.state.finished)announce('Welcome back. Your session is complete.');
   let lastRender='';
   function render(){
@@ -18,13 +18,12 @@
     document.querySelector('meta[name="theme-color"]').content=s.mode==='focus'?'#233F59':'#BBD8EC';
     document.querySelectorAll('[data-mode]').forEach(button=>button.setAttribute('aria-pressed',button.dataset.mode===s.mode));
     $('timer-caption').textContent=s.running?(s.mode==='focus'?'TIME TO FOCUS':'ROOM TO BREATHE'):(remaining<s.duration?'TAKE YOUR TIME':s.mode==='focus'?'TIME TO FOCUS':'ROOM TO BREATHE');
-    $('timer-note').textContent=s.mode==='focus'?'One thing at a time.':'A pause is part of the process.';
     $('start-label').textContent=s.running?'Pause':remaining<s.duration?'Resume':`Start ${s.mode==='focus'?'focus':'break'}`;$('play-icon').textContent=s.running?'Ⅱ':'▶';
     const current=Math.min(settings.cycle,s.completed+(s.mode==='focus'?1:0));
     $('cycle').textContent=`Session ${Math.max(1,current)} of ${settings.cycle}`;
     $('dots').innerHTML=Array.from({length:settings.cycle},(_,i)=>`<i class="${i<s.completed?'done':i===s.completed&&s.mode==='focus'?'current':''}"></i>`).join('');
     $('next').textContent=`Up next: ${labels[timer.next()]}`;
-    $('stats').textContent=s.stats.sessions?`${s.stats.sessions} focus session${s.stats.sessions===1?'':'s'} completed today · ${s.stats.minutes} minutes well spent`:'A fresh start. Make a little room for focus.';
+    $('stats').textContent=s.stats.sessions?`${s.stats.sessions} focus session${s.stats.sessions===1?'':'s'} completed today · ${s.stats.minutes} minutes`:'';
     document.title=s.running?`${time} — Focus Please`:s.finished?'Session complete — Focus Please':remaining<s.duration?'Paused — Focus Please':'Focus Please — A little time for what matters.';
   }
   // Animation runs only while visible. Timestamp reconciliation handles throttling/sleep.
